@@ -9,11 +9,11 @@
 This repository provides the code and data for the paper **"LongGenBench: Benchmarking Long-Form Generation in Language Models"**(https://arxiv.org/abs/2408.07055).
 
 <p align="center">
-    🤗 <a href="https://huggingface.co/datasets/mozhu/LongGenBench" target="_blank">HF Repo</a> • 📃 <a href="[https://arxiv.org/abs/2408.07055](https://arxiv.org/abs/2409.02076)" target="_blank">Paper</a> 
+    🤗 <a href="https://huggingface.co/datasets/mozhu/LongGenBench" target="_blank">HF Repo</a> • 📃 <a href="https://arxiv.org/abs/2409.02076" target="_blank">Paper</a> 
 </p>
 
 ## 🔥 Updates
-**[2025/01/23]** LongGenBench has been accepted to the main track of ICLR 2025!
+**[2025/01/23]** Our paper has been accepted to the main track of ICLR 2025! 
 
 
 ## Overview
@@ -58,14 +58,15 @@ Run all cells in sequence --- static.ipynb
 ![SGT Benchmark Overview](Fig/result.png)
 
 
-
+<!--
 ### Acknowledge
 
 Due to unforeseen circumstances, the title of my paper shares some similarities with the EMNLP 2024 Findings paper titled *LongGenBench*. However, the focus of our paper is different.
 
 The paper explores model output length under long input conditions by concatenating GSM8K and MMLU data. 
 
-For more details, you can read their paper here: [EMNLP 2024 Findings: LongGenBench: Long-context Generation Benchmark](https://aclanthology.org/2024.findings-emnlp.48/).
+For more details, you can read their paper here: [EMNLP 2024 Findings: LongGenBench: Long-context Generation Benchmark](https://aclanthology.org/2024.findings-emnlp.48/).  
+-->
 
 ## Citation
 
