@@ -6,7 +6,15 @@
 
 
 <!-- ![SGT Benchmark Overview](Fig/SGT.jpg) -->
-This repository provides the code and data for the paper **"LongGenBench: Benchmarking Long-Form Generation in Language Models"**.
+This repository provides the code and data for the paper **"LongGenBench: Benchmarking Long-Form Generation in Language Models"**(https://arxiv.org/abs/2408.07055).
+
+<p align="center">
+    🤗 <a href="https://huggingface.co/datasets/mozhu/LongGenBench" target="_blank">HF Repo</a> • 📃 <a href="[https://arxiv.org/abs/2408.07055](https://arxiv.org/abs/2409.02076)" target="_blank">Paper</a> 
+</p>
+
+## 🔥 Updates
+**[2025/01/23]** LongGenBench has been accepted to the main track of ICLR 2025!
+
 
 ## Overview
 The **LongGenBench** benchmark is designed to assess the long-form content generation abilities of language models (LMs) for tasks requiring coherent, long-context outputs. Traditional benchmarks often focus on short-context tasks or specific information retrieval, such as the Needle-in-a-Haystack (NIAH) tests. In contrast, LongGenBench is engineered to probe the abilities of LMs to generate extended text sequences that are coherent and contextually rich, while adhering to detailed prompt instructions involving various constraints.
@@ -44,14 +52,32 @@ bash Run_long_all_large_model.sh
 cd ./Evalution/results
 Run all cells in sequence --- static.ipynb
 ```
+
+
+### Result:
+![SGT Benchmark Overview](Fig/result.png)
+
+
+
+### Acknowledge
+
+Due to unforeseen circumstances, the title of my paper shares some similarities with the EMNLP 2024 Findings paper titled *LongGenBench*. However, the focus of our paper is different.
+
+The paper explores model output length under long input conditions by concatenating GSM8K and MMLU data. 
+
+For more details, you can read their paper here: [EMNLP 2024 Findings: LongGenBench: Long-context Generation Benchmark](https://aclanthology.org/2024.findings-emnlp.48/).
+
 ## Citation
 
 If you find this work useful in your research, please cite our paper:
 
 ```bibtex
-@article{wu2024spinning,
-  title={Spinning the Golden Thread: Benchmarking Long-Form Generation in Language Models},
-  author={Wu, Yuhao and Hee, Ming Shan and Hu, Zhiqing and Lee, Roy Ka-Wei},
-  journal={arXiv preprint arXiv:2409.02076},
-  year={2024}
+@misc{wu2024longgenbenchbenchmarkinglongformgeneration,
+      title={LongGenBench: Benchmarking Long-Form Generation in Long Context LLMs}, 
+      author={Yuhao Wu and Ming Shan Hee and Zhiqing Hu and Roy Ka-Wei Lee},
+      year={2024},
+      eprint={2409.02076},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2409.02076}, 
 }
