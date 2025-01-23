@@ -8,9 +8,14 @@
 <!-- ![SGT Benchmark Overview](Fig/SGT.jpg) -->
 This repository provides the code and data for the paper **"LongGenBench: Benchmarking Long-Form Generation in Language Models"**(https://arxiv.org/abs/2408.07055).
 
+
 <p align="center">
     🤗 <a href="https://huggingface.co/datasets/mozhu/LongGenBench" target="_blank">HF Repo</a> • 📃 <a href="https://arxiv.org/abs/2409.02076" target="_blank">Paper</a> 
 </p>
+
+
+[English](./README.md) | [中文](./README_zh.md) |
+
 
 ## 🔥 Updates
 **[2025/01/23]** Our paper has been accepted to the main track of ICLR 2025! 
