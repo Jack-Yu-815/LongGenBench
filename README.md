@@ -38,7 +38,7 @@ SGT particularly emphasizes the model's capability to follow complex instruction
 ### Clone this repository:
 
 ```bash
-git clone git@github.com:mozhu621/SGT.git
+git clone git@github.com:mozhu621/LongGenBench.git
 cd SGT
 pip install -r requirements.txt
 ```
