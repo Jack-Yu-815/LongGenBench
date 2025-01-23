@@ -9,9 +9,8 @@
     🤗 <a href="https://huggingface.co/datasets/mozhu/LongGenBench" target="_blank">HF Repo</a> • 📃 <a href="https://arxiv.org/abs/2409.02076" target="_blank">论文</a> 
 </p>
 
-<p align="center">
-  [English](./README.md) | [中文](./readme_zh.md)
-</p>
+### Language/语言: [English](./README.md) | [中文](./readme_zh.md)
+
 
 
 ## 🔥 更新
