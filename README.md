@@ -14,9 +14,9 @@ This repository provides the code and data for the paper **"LongGenBench: Benchm
 </p>
 
 
-<p align="center">
-  [English](./README.md) | [中文](./readme_zh.md)
-</p>
+
+# Language/语言: [English](./README.md) | [中文](./readme_zh.md)
+
 
 
 ## 🔥 Updates
