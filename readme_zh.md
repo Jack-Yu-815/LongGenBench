@@ -9,7 +9,10 @@
     🤗 <a href="https://huggingface.co/datasets/mozhu/LongGenBench" target="_blank">HF Repo</a> • 📃 <a href="https://arxiv.org/abs/2409.02076" target="_blank">论文</a> 
 </p>
 
-[English](./README.md) | [中文](./README_zh.md) |
+<p align="center">
+  [English](./README.md) | [中文](./readme_zh.md)
+</p>
+
 
 ## 🔥 更新
 **[2025/01/23]** 我们的论文已被ICLR 2025的主会场接收！
