@@ -133,7 +133,7 @@ sampling_params = SamplingParams(temperature=0.95, top_p=0.95, max_tokens=50, se
 start_time = time.time()
 
 # Initialize the LLM with the specified model and configuration
-llm = LLM(model="meta-llama/Meta-Llama-3.1-8B-Instruct", tensor_parallel_size=args.gpu)
+llm = LLM(model="meta-llama/Llama-3.3-70B-Instruct", tensor_parallel_size=args.gpu)
 
 # Evaluate the accuracy for each set of prompts
 results_once = evaluate_accuracy(prompts_once, llm, sampling_params)
