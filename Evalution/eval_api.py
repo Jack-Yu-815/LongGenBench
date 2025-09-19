@@ -1,9 +1,21 @@
+import os
+from openai import OpenAI, AzureOpenAI
+from tqdm import tqdm
+
+api_key = "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"
+client = OpenAI(
+    base_url = "https://integrate.api.nvidia.com/v1",
+    api_key=api_key,
+)
+
+
 import json
 import re
 import time
 import pandas as pd
 from vllm import LLM, SamplingParams
 import argparse
+
 # 读取JSON文件
 def read_json(file_path):
     with open(file_path, 'r') as file:
@@ -59,11 +71,19 @@ def create_prompts(checks, type_to_block):
     return prompts, identifiers
 
 # 定义评估准确性的函数
-def evaluate_accuracy(prompts, llm, sampling_params):
-    outputs = llm.generate(prompts, sampling_params)
+def evaluate_accuracy(prompts):
     results = []
-    for output in outputs:
-        response = output.outputs[0].text.strip().lower()
+    for prompt in tqdm(prompts):
+        completion = client.chat.completions.create(
+            model="meta/llama-3.3-70b-instruct",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.95,
+            top_p=0.95,
+            max_tokens=50,
+            stream=False,
+            seed=42,
+        )
+        response = completion.choices[0].message.content.strip().lower()
         result = 'yes' if 'yes' in response else 'no'
         results.append(result)
     return results
@@ -136,19 +156,14 @@ for data in datas:
 
 completion_rate /= len(datas)  # 平均完成度
 
-# Define the sampling parameters
-sampling_params = SamplingParams(temperature=0.95, top_p=0.95, max_tokens=50, seed=42)
-
 # Record the start time
 start_time = time.time()
 
-# Initialize the LLM with the specified model and configuration
-llm = LLM(model="meta-llama/Llama-3.3-70B-Instruct", tensor_parallel_size=args.gpu)
 
 # Evaluate the accuracy for each set of prompts
-results_once = evaluate_accuracy(prompts_once, llm, sampling_params)
-results_range = evaluate_accuracy(prompts_range, llm, sampling_params)
-results_periodic = evaluate_accuracy(prompts_periodic, llm, sampling_params)
+results_once = evaluate_accuracy(prompts_once)
+results_range = evaluate_accuracy(prompts_range)
+results_periodic = evaluate_accuracy(prompts_periodic)
 
 # 计算准确率
 acc_once = sum(1 for result in results_once if result == 'yes') / len(results_once) if results_once else 0

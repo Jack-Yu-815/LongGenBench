@@ -58,3 +58,5 @@ Draw/ruler_sgt.pdf
 Draw/three.pdf
 Evalution/results/static.ipynb
 Evalution/results/stats.csv
+.venv/
+.env
