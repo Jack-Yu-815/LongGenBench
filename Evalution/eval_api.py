@@ -1,11 +1,13 @@
 import os
 from openai import OpenAI, AzureOpenAI
 from tqdm import tqdm
+import dotenv
 
-api_key = "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"
+dotenv.load_dotenv()
+
 client = OpenAI(
     base_url = "https://integrate.api.nvidia.com/v1",
-    api_key=api_key,
+    api_key=os.getenv("NVIDIA_API_KEY"),
 )
 
 
@@ -15,6 +17,7 @@ import time
 import pandas as pd
 from vllm import LLM, SamplingParams
 import argparse
+
 
 # 读取JSON文件
 def read_json(file_path):

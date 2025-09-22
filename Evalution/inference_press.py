@@ -39,7 +39,9 @@ def parse_args():
     parser.add_argument('--model_names', type=str, nargs='+', 
                        default=["meta-llama/Meta-Llama-3.1-8B-Instruct", "Qwen/Qwen3-8B", "google/gemma-3-12b-it"],
                        help='List of model names to evaluate.')
-  
+    parser.add_argument('--presses', type=str, nargs='+', 
+                        default=["knorm", "adakv_expected_attention_e2", "streaming_llm", "keydiff", "knorm_8", "adakv_expected_attention_e2_8", "streaming_llm_8", "keydiff_8", "knorm_2", "adakv_expected_attention_e2_2", "streaming_llm_2", "keydiff_2"])
+    
     args = parser.parse_args()
     return args
 
@@ -94,8 +96,8 @@ press_dict = {
     "knorm": DecodingPress(base_press=KnormPress(), compression_interval=256, target_size=4096),
     "adakv_expected_attention_e2": DecodingPress(base_press=AdaKVPress(ExpectedAttentionPress(epsilon=1e-2)), compression_interval=256, target_size=4096, hidden_states_buffer_size=256),
     "streaming_llm": DecodingPress(base_press=StreamingLLMPress(), compression_interval=256, target_size=4096),
-    # "tova": DecodingPress(base_press=TOVAPress(), compression_interval=256, target_size=4096, hidden_states_buffer_size=256),
     "keydiff": DecodingPress(base_press=KeyDiffPress(), compression_interval=256, target_size=4096, hidden_states_buffer_size=256),
+    # "tova": DecodingPress(base_press=TOVAPress(), compression_interval=256, target_size=4096, hidden_states_buffer_size=256),
     # "qfilter": DecodingPress(base_press=QFilterPress(), compression_interval=256, target_size=4096),
     
     "knorm_8": DecodingPress(base_press=KnormPress(), compression_interval=256, target_size=8192),
@@ -108,11 +110,12 @@ press_dict = {
     "knorm_2": DecodingPress(base_press=KnormPress(), compression_interval=256, target_size=2048),
     "streaming_llm_2": DecodingPress(base_press=StreamingLLMPress(), compression_interval=256, target_size=2048),
     "keydiff_2": DecodingPress(base_press=KeyDiffPress(), compression_interval=256, target_size=2048, hidden_states_buffer_size=256),
+    "adakv_expected_attention_e2_2": DecodingPress(base_press=AdaKVPress(ExpectedAttentionPress(epsilon=1e-2)), compression_interval=256, target_size=2048, hidden_states_buffer_size=256),
     # "tova_2": DecodingPress(base_press=TOVAPress(), compression_interval=256, target_size=2048, hidden_states_buffer_size=256),
     # "qfilter_2": DecodingPress(base_press=QFilterPress(), compression_interval=256, target_size=2048),
-    "adakv_expected_attention_e2_2": DecodingPress(base_press=AdaKVPress(ExpectedAttentionPress(epsilon=1e-2)), compression_interval=256, target_size=2048, hidden_states_buffer_size=256),
-    
 }
+
+assert all(press in press_dict for press in args.presses), f"One or more presses not recognized. Available presses: {list(press_dict.keys())}"
 
 for model_name in args.model_names:
     # Load model and tokenizer
@@ -140,9 +143,14 @@ for model_name in args.model_names:
 
     attn_implementation = "sdpa"  # use "eager" for ObservedAttentionPress and "sdpa" if you can't use "flash_attention_2"
     pipe = pipeline("kv-press-text-generation", model=model_name, device_map="auto", model_kwargs={"attn_implementation":attn_implementation, "dtype": torch.bfloat16})
-    
-    for press_name, press in press_dict.items():
+
+    for press_name in args.presses:
+        press = press_dict[press_name]
+        print(f"\nUsing press: {press_name}")
         # Process each prompt individually (batch size = 1)
+        output_file = f"./results/{model_name}_maxlen{args.max_length}_{press_name}.json"
+        if os.path.exists(output_file):
+            continue
         for i, prompt in enumerate(tqdm(prompts, desc="Processing prompts", unit="prompt")):
             try:
                 cache = DynamicCache()
